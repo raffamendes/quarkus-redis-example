@@ -1,7 +1,0 @@
----
-trigger:
-  - '*'
-  
-pool:
-  vmImage: 'ubuntu-latest'
-  
