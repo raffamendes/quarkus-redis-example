@@ -8,8 +8,10 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
+container: registry.access.redhat.com/ubi8/openjdk-17@sha256:0d12c4097e098b62f78a7a31c0d711d78e1e5a53f4c007b9a5fc6cc6ab4dc018
 
 steps:
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
