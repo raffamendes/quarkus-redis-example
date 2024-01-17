@@ -8,7 +8,10 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-container: registry.access.redhat.com/ubi8/openjdk-17@sha256:0d12c4097e098b62f78a7a31c0d711d78e1e5a53f4c007b9a5fc6cc6ab4dc018
+  
+variables:
+  imageName: '/rcmendes/quarkus-redis'
+  serviceConnection: 'quayServiceConnection' 
 
 steps:
 
@@ -22,3 +25,12 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+    
+- task: Docker@2
+  displayName: Build from Red Hat Universal Base Image
+  inputs:
+    command: build
+    containerRegistry: $(serviceConnection)
+    repository: $(imageName)
+    Dockerfile: src/main/docker/Dockerfile.jvm
+    tags: azure-test
