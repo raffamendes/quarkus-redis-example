@@ -26,6 +26,9 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
     
+- script: 'ls -lah'
+  displayName: 'LS'
+    
 - task: Docker@2
   displayName: Build from Red Hat Universal Base Image
   inputs:
