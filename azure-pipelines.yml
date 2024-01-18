@@ -17,11 +17,14 @@ steps:
 
 - task: Maven@3
   inputs:
-    options: '-DskipTests -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.builder=jib -Dquarkus.container-image.tag=0.1-alfa -Dquarkus.container-image.registry=quay.io -Dquarkus.container-image.insecure=true -Dquarkus.container-image.group=rcmendes -Dquarkus.container-image.name=quarkus-redis -Dquarkus.container-image.username=$(Username) -Dquarkus.container-image.password=$(QuayPassword)'
+    options: '-DskipTests -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.builder=jib -Dquarkus.container-image.tag=0.1-alfa -Dquarkus.container-image.registry=quay.io -Dquarkus.container-image.insecure=true -Dquarkus.container-image.group=rcmendes -Dquarkus.container-image.name=quarkus-redis -Dquarkus.container-image.username=$env:USERNAME -Dquarkus.container-image.password=$env:PASSWORD'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '17'
     jdkArchitectureOption: 'x64'
-    goals: 'install'    
+    goals: 'install'
+  env:
+    USERNAME: $(USERNAME)
+    PASSWORD: $(QUAYPASSWORD) 
 #- task: Docker@2
 
 #  displayName: Build from Red Hat Universal Base Image
