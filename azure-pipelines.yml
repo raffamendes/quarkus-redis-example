@@ -18,22 +18,20 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
+    mavenOptions: '-Xmx3072m '
+    options: '-Dquarkus.container-image.build=true -Dquarkus.container-image.builder=jib -Dquarkus.container-image.tag=0.1-alfa -Dquarkus.container-image.registry=quay.io -Dquarkus.container-image.insecure=true -Dquarkus.container-image.group=rcmendes -Dquarkus.container-image.name=quarkus-redis'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '17'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    goals: 'install'
     
-- script: 'ls -lah'
-  displayName: 'LS'
-    
-- task: Docker@2
-  displayName: Build from Red Hat Universal Base Image
-  inputs:
-    command: build
-    containerRegistry: $(serviceConnection)
-    repository: $(imageName)
-    Dockerfile: src/main/docker/Dockerfile.jvm
-    tags: azure-test
+#- task: Docker@2
+#  displayName: Build from Red Hat Universal Base Image
+#  inputs:
+#    command: build
+#    containerRegistry: $(serviceConnection)
+#    repository: $(imageName)
+#   Dockerfile: src/main/docker/Dockerfile.jvm
+#   tags: azure-test
