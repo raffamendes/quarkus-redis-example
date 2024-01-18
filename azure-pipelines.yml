@@ -30,4 +30,5 @@ steps:
     containerRegistry: $(serviceConnection)
     repository: $(imageName)
     Dockerfile: src/main/docker/Dockerfile.jvm
+    buildContext: $(System.DefaultWorkingDirectory)
     tags: azure-test
