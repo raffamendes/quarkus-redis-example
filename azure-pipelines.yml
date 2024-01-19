@@ -17,7 +17,7 @@ resources:
   repositories:
   - repository: ManifestsRepo
     type: github
-    endpoint: raffamendes
+    endpoint: github.com_raffamendes
     name: raffamendes/helm-charts  
 
 stages:
@@ -62,7 +62,6 @@ stages:
       persistCredentials: true
       
     - script: |
-            git clone https://github.com/raffamendes/helm-charts.git
             apk add py3-pip jq
             pip install yq
             cd helm-charts
