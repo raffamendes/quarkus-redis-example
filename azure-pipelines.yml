@@ -56,6 +56,6 @@ stages:
             pip install yq
             cd helm-charts
             cat charts/quarkus-redis/values.yaml
-            yq -iy 'image.tag = "$(Build.SourceVersion)"' charts/quarkus-redis/values.yaml
+            yq -iy '.image.tag = "$(Build.SourceVersion)"' charts/quarkus-redis/values.yaml
             cat charts/quarkus-redis/values.yaml
       displayName: 'Updating helm repo'
