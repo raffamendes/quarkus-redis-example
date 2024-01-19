@@ -55,7 +55,8 @@ stages:
             apk add py3-pip jq
             pip install yq
             cd helm-charts
-            cat charts/quarkus-redis/values.yaml
             yq -iy '.image.tag = "$(Build.SourceVersion)"' charts/quarkus-redis/values.yaml
-            cat charts/quarkus-redis/values.yaml
+            git add values.yaml
+            git commit -m "[Azure Pipelines] Updating image tag"
+            git push -u origin main            
       displayName: 'Updating helm repo'
