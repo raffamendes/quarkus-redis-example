@@ -18,7 +18,8 @@ resources:
   - repository: ManifestsRepo
     type: github
     endpoint: github.com_raffamendes
-    name: raffamendes/helm-charts  
+    name: raffamendes/helm-charts 
+    ref: main 
 
 stages:
 - stage: 'CI'
