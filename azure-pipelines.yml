@@ -58,7 +58,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     
-    - checkout: ManifestRepo
+    - checkout: ManifestsRepo
       persistCredentials: true
       
     - script: |
