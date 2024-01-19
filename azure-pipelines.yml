@@ -46,7 +46,8 @@ stages:
   jobs:
   - job: 'CI'
     displayName: 'Update manifest repo'
-    pool: ubuntu-latest
+    pool: 
+      vmImage: ubuntu-latest
     steps:
     
     - script: 'git clone https://github.com/raffamendes/helm-charts.git'
