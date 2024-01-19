@@ -43,6 +43,15 @@ stages:
 - stage: 'CD'
   displayName: "Update the manifest repo"
   dependsOn: 'CI'
+  
+  resources:
+    repositories:
+    - repository: ManifestsRepo
+      type: github
+      endpoint: raffamendes
+      name: raffamendes/helm-charts
+    
+  
   jobs:
   - job: 'CI'
     displayName: 'Update manifest repo'
@@ -50,7 +59,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     
-    - checkout: self
+    - checkout: ManifestRepo
       persistCredentials: true
       
     - script: |
