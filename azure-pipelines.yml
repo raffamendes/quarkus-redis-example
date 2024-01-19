@@ -50,5 +50,9 @@ stages:
       vmImage: ubuntu-latest
     steps:
     
-    - script: 'git clone https://github.com/raffamendes/helm-charts.git'
+    - script: |
+            git clone https://github.com/raffamendes/helm-charts.git
+            apk add py3-pip jq
+            pip install yq
+
       displayName: 'Updating helm repo'
