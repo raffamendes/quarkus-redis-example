@@ -61,7 +61,7 @@ stages:
             yq -iy '.image.tag = "$(Build.SourceVersion)"' charts/quarkus-redis/values.yaml
             git config --global user.email "azure@devops.com"
             git config --global user.name "Azure Pipelines"
-            git add values.yaml
+            git add .
             git commit -m "[Azure Pipelines] Updating image tag"
             git push -u origin main            
       displayName: 'Updating helm repo'
