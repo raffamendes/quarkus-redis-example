@@ -64,7 +64,6 @@ stages:
     - script: |
             apk add py3-pip jq
             pip install yq
-            cd helm-charts
             yq -iy '.image.tag = "$(Build.SourceVersion)"' charts/quarkus-redis/values.yaml
             git config --global user.email "azure@devops.com"
             git config --global user.name "Azure Pipelines"
