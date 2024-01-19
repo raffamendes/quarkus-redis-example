@@ -11,7 +11,14 @@ trigger:
   
 variables:
   imageName: 'rcmendes/quarkus-redis'
-  serviceConnection: 'quayServiceConnection'  
+  serviceConnection: 'quayServiceConnection'
+  
+resources:
+  repositories:
+  - repository: ManifestsRepo
+    type: github
+    endpoint: raffamendes
+    name: raffamendes/helm-charts  
 
 stages:
 - stage: 'CI'
@@ -43,14 +50,6 @@ stages:
 - stage: 'CD'
   displayName: "Update the manifest repo"
   dependsOn: 'CI'
-  
-  resources:
-    repositories:
-    - repository: ManifestsRepo
-      type: github
-      endpoint: raffamendes
-      name: raffamendes/helm-charts
-    
   
   jobs:
   - job: 'CI'
