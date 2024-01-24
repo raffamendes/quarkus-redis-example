@@ -54,7 +54,7 @@ stages:
         
         
     - script: |
-            docker ls      
+            docker images      
         
 #    - script: |
  #            set +x
