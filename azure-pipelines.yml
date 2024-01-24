@@ -65,7 +65,23 @@ stages:
              --output "json" 
       env:
         ROX_API_TOKEN: $(RoxApiToken)
-      displayName: "ACS Image Scan"        
+      displayName: "ACS Image Scan"
+      
+    - script: |
+             set +x
+             export NO_COLOR="True"
+             curl -k -L -H "Authorization: Bearer $ROX_API_TOKEN" "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" --output ./roxctl
+             chmod +x ./roxctl
+             IMAGE=$(docker images | grep quay | awk '{print $1}')
+             TAG=$(docker images | grep quay | awk '{print $2}')
+             ./roxctl image check --insecure-skip-tls-verify \
+             -e "$(roxCentralEndpoint)" --image "$IMAGE:$TAG" \
+             --output "json" 
+      env:
+        ROX_API_TOKEN: $(RoxApiToken)
+      displayName: "ACS Image Check"
+      
+              
 - stage: 'CD'
   displayName: "Update the manifest repo"
   dependsOn: 'CI'
