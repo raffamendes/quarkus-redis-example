@@ -59,7 +59,7 @@ stages:
              curl -s -k -L -H "Authorization: Bearer $ROX_API_TOKEN" \
              "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" \
              --output ./roxctl  > /dev/null; echo "Getting roxctl"
-             chmod +x ./roxctl > /dev/null
+             chmod +x ./roxctl
              IMAGE=$(docker images | grep quay | awk '{print $1}')
              TAG=$(docker images | grep quay | awk '{print $1}')
              ./roxctl image scan \
