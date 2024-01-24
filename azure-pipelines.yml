@@ -56,9 +56,9 @@ stages:
     - script: |
              set +x
              export NO_COLOR="True"
-             curl -k -L -H "Authorization: Bearer $ROX_API_TOKEN" "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" \
-             --output ./roxctl
+             curl -k -L -H "Authorization: Bearer $ROX_API_TOKEN" "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" --output ./roxctl
              chmod +x ./roxctl
+             docker images
              IMAGE=$(docker images | grep quay | awk '{print $1}')
              TAG=$(docker images | grep quay | awk '{print $1}')
              ./roxctl image scan \
