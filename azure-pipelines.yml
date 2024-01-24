@@ -51,25 +51,23 @@ stages:
         Dockerfile: src/main/docker/Dockerfile.jvm
         buildContext: $(System.DefaultWorkingDirectory)
         tags: $(Build.SourceVersion)
-        
+  
         
     - script: |
-            docker images      
-        
-#    - script: |
- #            set +x
- #            export NO_COLOR="True"
- #            curl -s -k -L -H "Authorization: Bearer $ROX_API_TOKEN" \
- #            "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" \
- #            --output ./roxctl  > /dev/null; echo "Getting roxctl"
- #            chmod +x ./roxctl > /dev/null
- #            ./roxctl image scan \
- #            $( [ "$(params.insecure-skip-tls-verify)" = "true" ] && \
- #            echo -n "--insecure-skip-tls-verify") \
-  #           -e "$(roxCentralEndpoint)" --image "" \
-  #           --output "json" 
-  #    env:
-  #      ROX_API_TOKEN: $(RoxApiToken)   
+             set +x
+             export NO_COLOR="True"
+             curl -s -k -L -H "Authorization: Bearer $ROX_API_TOKEN" \
+             "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" \
+             --output ./roxctl  > /dev/null; echo "Getting roxctl"
+             chmod +x ./roxctl > /dev/null
+             IMAGE = $(docker images | grep quay | awk '{print $1}')
+             TAG = $(docker images | grep quay | awk '{print $1}')
+             ./roxctl image scan \
+              "--insecure-skip-tls-verify" \
+             -e "$(roxCentralEndpoint)" --image "$IMAGE:$TAG" \
+             --output "json" 
+      env:
+        ROX_API_TOKEN: $(RoxApiToken)   
         
 - stage: 'CD'
   displayName: "Update the manifest repo"
