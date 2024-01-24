@@ -60,15 +60,15 @@ stages:
              "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" \
              --output ./roxctl  > /dev/null; echo "Getting roxctl"
              chmod +x ./roxctl > /dev/null
-             IMAGE = $(docker images | grep quay | awk '{print $1}')
-             TAG = $(docker images | grep quay | awk '{print $1}')
+             IMAGE=$(docker images | grep quay | awk '{print $1}')
+             TAG=$(docker images | grep quay | awk '{print $1}')
              ./roxctl image scan \
               "--insecure-skip-tls-verify" \
              -e "$(roxCentralEndpoint)" --image "$IMAGE:$TAG" \
              --output "json" 
       env:
-        ROX_API_TOKEN: $(RoxApiToken)   
-        
+        ROX_API_TOKEN: $(RoxApiToken)
+      displayName: "ACS Image Scan"        
 - stage: 'CD'
   displayName: "Update the manifest repo"
   dependsOn: 'CI'
