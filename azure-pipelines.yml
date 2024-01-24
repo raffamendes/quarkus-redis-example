@@ -12,6 +12,9 @@ trigger:
 variables:
   imageName: 'rcmendes/quarkus-redis'
   serviceConnection: 'quayServiceConnection'
+  roxCentralEndpoint: 'acs-data-clsuo50j3h5s6dovaj90.acs.rhcloud.com:443'
+  
+  
   
 resources:
   repositories:
@@ -48,6 +51,26 @@ stages:
         Dockerfile: src/main/docker/Dockerfile.jvm
         buildContext: $(System.DefaultWorkingDirectory)
         tags: $(Build.SourceVersion)
+        
+        
+    - script: |
+            docker ls      
+        
+#    - script: |
+ #            set +x
+ #            export NO_COLOR="True"
+ #            curl -s -k -L -H "Authorization: Bearer $ROX_API_TOKEN" \
+ #            "https://"$(roxCentralEndpoint)"/api/cli/download/roxctl-linux" \
+ #            --output ./roxctl  > /dev/null; echo "Getting roxctl"
+ #            chmod +x ./roxctl > /dev/null
+ #            ./roxctl image scan \
+ #            $( [ "$(params.insecure-skip-tls-verify)" = "true" ] && \
+ #            echo -n "--insecure-skip-tls-verify") \
+  #           -e "$(roxCentralEndpoint)" --image "" \
+  #           --output "json" 
+  #    env:
+  #      ROX_API_TOKEN: $(RoxApiToken)   
+        
 - stage: 'CD'
   displayName: "Update the manifest repo"
   dependsOn: 'CI'
@@ -66,11 +89,11 @@ stages:
             apk add py3-pip jq
             pip install yq
             yq -iy '.image.tag = "$(Build.SourceVersion)"' charts/quarkus-redis/values.yaml
-            cat charts/quarkus-redis/values.yaml
             git config --global user.email "azure@devops.com"
             git config --global user.name "Azure Pipelines"
-            git status
             git add .
             git commit -m "[Azure Pipelines] Updating image tag"
-            git push origin HEAD:main         
+            git push origin HEAD:main        
       displayName: 'Updating helm repo'
+      
+     
