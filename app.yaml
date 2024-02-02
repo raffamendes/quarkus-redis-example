@@ -1,0 +1,19 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quarkus-redis
+  namespace: vplugindemo
+spec:
+  destination:
+    namespace: quarkus-redis
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    repoURL: 'https://github.com/raffamendes/quarkus-redis-example.git'
+    targetRevision: HEAD
+    path: ./
+  syncPolicy:
+    automated:
+      prune: true
+
