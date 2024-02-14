@@ -104,6 +104,7 @@ stages:
             git config --global user.name "Azure Pipelines"
             git add .
             git commit -m "[Azure Pipelines] Updating image tag"
+            git pull --ff --no-edit
             git push origin HEAD:main        
       displayName: 'Updating helm repo'
       
