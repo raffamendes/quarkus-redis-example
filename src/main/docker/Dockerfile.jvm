@@ -92,7 +92,7 @@ COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
 EXPOSE 8080 10250
 USER 185
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_OPTS_APPEND="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10250 -Dcom.sun.management.jmxremote.rmi.port=10250 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false"
+#ENV JAVA_OPTS_APPEND="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10250 -Dcom.sun.management.jmxremote.rmi.port=10250 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
 ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
